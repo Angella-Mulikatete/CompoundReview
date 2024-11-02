@@ -146,3 +146,33 @@ The domain separator ensures that signatures are bound to this specific contract
 bytes32 public constant BALLOT_TYPEHASH = keccak256("Ballot(uint256 proposalId,uint8 support)");
 ```
 This `BALLOT_TYPEHASH` is the EIP-712 typehash used for votes or “ballots” cast by users. It specifies the structure of the data to be signed, including the proposal ID and the support type (e.g., for, against).
+
+The following functions are part of the compound governance contract
+
+#### 2.1 initialize()
+```
+  function initialize(address timelock_, address comp_, uint votingPeriod_, uint votingDelay_, uint proposalThreshold_) public {
+        require(address(timelock) == address(0), "GovernorBravo::initialize: can only initialize once");
+        require(msg.sender == admin, "GovernorBravo::initialize: admin only");
+        require(timelock_ != address(0), "GovernorBravo::initialize: invalid timelock address");
+        require(comp_ != address(0), "GovernorBravo::initialize: invalid comp address");
+        require(votingPeriod_ >= MIN_VOTING_PERIOD && votingPeriod_ <= MAX_VOTING_PERIOD, "GovernorBravo::initialize: invalid voting period");
+        require(votingDelay_ >= MIN_VOTING_DELAY && votingDelay_ <= MAX_VOTING_DELAY, "GovernorBravo::initialize: invalid voting delay");
+        require(proposalThreshold_ >= MIN_PROPOSAL_THRESHOLD && proposalThreshold_ <= MAX_PROPOSAL_THRESHOLD, "GovernorBravo::initialize: invalid proposal threshold");
+
+        timelock = TimelockInterface(timelock_);
+        comp = CompInterface(comp_);
+        votingPeriod = votingPeriod_;
+        votingDelay = votingDelay_;
+        proposalThreshold = proposalThreshold_;
+    }
+```
+This initialize function in the GovernorBravoDelegate contract is used in setting up the Compound governance contract's parameters and dependencies.  It sets core configuration parameters that define how governance proposals will be created, voted on, and executed. 
+This function is only called once, as indicated by the require checks, and it can only be called by the contract’s admin.
+Parameters:
+
+address timelock_: Address of the Timelock contract, which enforces a delay for executing proposals. This delay ensures time for users to adjust positions before a passed proposal is executed.
+address comp_: Address of the COMP token contract, which is the governance token of Compound. Only users holding COMP can vote and participate in governance.
+uint votingPeriod_: Duration of the voting period (in blocks), determining how long a proposal is open for voting.
+uint votingDelay_: Delay (in blocks) between the proposal creation and the start of voting, allowing users to prepare before voting begins.
+uint proposalThreshold_: Minimum amount of COMP tokens required to create a proposal. This helps prevent spam by ensuring that only significant stakeholders can propose changes.
