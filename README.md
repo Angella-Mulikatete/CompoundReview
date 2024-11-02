@@ -42,9 +42,8 @@ Hello, I'm Samuel Dahunsi, a Smart Contract Developer with practical experience 
 - Solidity, Diamond Standard, Foundry, Hardhat, Wagmi, Ethers.js, React, JavaScript, HTML, CSS
 
 #### 1.4 Links  
-- [Portfolio](#)  
-- [LinkedIn](#)  
-- [Twitter](#)  
+- [LinkedIn](https://www.linkedin.com/in/angella-mulikatete-7b83371a2/)  
+- [Twitter](https://x.com/AMulikatete)  
 
 ---
 
