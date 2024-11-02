@@ -8,6 +8,66 @@
 | **Status**       | Draft                         |
 | **Date Created** | 2nd Nov, 2024          |
 
+---
+
+### Table of Contents
+1. **INTRODUCTION**  
+   1.1 **Disclaimer**  
+   1.2 **About Me**  
+   1.3 **Skills**  
+   1.4 **Link**  
+   1.5 **Compound Governance**  
+   1.6 **GovernorBravoDelegate**  
+   1.7 **Scope**  
+   1.8 **Roles**  
+   1.9 **System Overview**  
+2. **CONTRACT REVIEW**  
+3. **FINDINGS**  
+   3.1 **Qualitative Analysis**  
+   3.2 **Summary**  
+   3.3 **Recommendations**  
+4. **CONCLUSION**  
+
+---
+
+### 1.0 INTRODUCTION
+
+#### 1.1 Disclaimer  
+This audit is a professional assessment based on the provided contract information and my knowledge in blockchain security. This audit is **not** a guarantee of the contract's security and cannot eliminate all potential vulnerabilities. Investing in smart contracts entails risks, and this review does not ensure financial or operational outcomes. Users are urged to conduct additional independent reviews and due diligence before participating in or investing in the contract.
+
+#### 1.2 About Me  
+Hello, I'm Samuel Dahunsi, a Smart Contract Developer with practical experience from my internship at Web3bridge. My background is grounded in blockchain development, with a focus on producing secure, efficient smart contracts that can reshape how we interact with digital assets.
+
+#### 1.3 Skills  
+- Solidity, Diamond Standard, Foundry, Hardhat, Wagmi, Ethers.js, React, JavaScript, HTML, CSS
+
+#### 1.4 Links  
+- [Portfolio](#)  
+- [LinkedIn](#)  
+- [Twitter](#)  
+
+---
+
+### 1.5 Compound Governance
+Compound Protocol is a decentralized money market protocol with algorithmic interest rates based on supply-demand dynamics, allowing for seamless Ethereum-based asset transfers.  
+
+Compound Governance is the decentralized decision-making system for managing Compound Finance, a DeFi protocol on the Ethereum blockchain that provides lending and borrowing services. Key elements of Compound Governance include:  
+
+- **COMP Token:** The protocol’s governance token, where token holders’ voting power corresponds to their COMP holdings.  
+- **Proposal Creation:** COMP holders can propose protocol changes, ranging from adjustments to new feature introductions.  
+- **Voting and Approval:** Token holders vote “for,” “against,” or “abstain.” A proposal requires a quorum and a certain threshold of “for” votes to be approved.  
+- **Execution:** Approved proposals proceed to implementation, enabling community-driven decisions.  
+
+Compound Governance fosters community-driven decision-making, promoting a secure, inclusive, and decentralized protocol evolution.
+
+---
+
+### 1.6 GovernorBravoDelegate  
+The GovernorBravoDelegate contract is integral to Compound’s governance, enabling token holders to create proposals and vote on protocol changes, such as asset listings and rate adjustments. The contract defines constants and functions regulating governance parameters, including voting period lengths, quorum requirements, and proposal thresholds. Its critical role underpins Compound’s decentralized and community-managed protocol structure.  
+
+### 1.7 Scope  
+This audit evaluates the **GovernorBravoDelegateStorageV1** and **GovernorBravoDelegateStorageV2** smart contracts, alongside related storage and event definitions. The audit focuses on identifying security issues, optimizing code, and ensuring alignment with Compound’s governance specifications.
+
 
 ## Overview
 The `GovernorBravo` contract suite is part of a decentralized governance system, supporting proposals, voting, and administrative updates. It is designed with modular storage for upgradeability and future expansion, using event-driven tracking for proposal actions and a timelock for proposal execution. The contract also includes a whitelisting mechanism for privileged account access.
