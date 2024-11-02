@@ -13,7 +13,7 @@
 ### Table of Contents
 1. [INTRODUCTION](#10-introduction)  
    1.1 [About Me](#11-about-me)  
-   1.2 [Skills](#12-skills)
+   1.2 [Skills](#12-skills)      
    1.3 [Links](#13-links)  
    1.4 [Compound Protocol](#14-compound-protocol)  
    1.5 [Compound Governance](#15-compound-governance)  
@@ -89,5 +89,16 @@ GovernorBravoDelegate contract is an implementation of the governance mechanism 
    - **TimelockInterface**: This interface defines the functions that can be called on the Timelock contract. The delay function returns the delay period specified in the Timelock contract. The GRACE_PERIOD function returns the grace period specified in the Timelock contract. The acceptAdmin function is used to accept the admin role for the Timelock contract. The queuedTransactions function is used to check whether a transaction with the specified hash has been queued in the Timelock contract. The queueTransaction function is used to add a transaction to the queue in the Timelock contract. The cancelTransaction function is used to cancel a transaction that has been queued in the Timelock contract. The executeTransaction function is used to execute a transaction that has been queued in the Timelock contract.
    - **CompInterface**:This interface defines the functions that can be called on the COMP token contract. The getPriorVotes function is used to get the number of votes that an account had at a specific block number. This function is used in the governance system of the Compound protocol to determine the voting power of token holders.
    - **GovernorAlpha**:This interface defines the function that can be called on the GovernorAlpha contract. The proposalCount function returns the total number of proposals (state variable) that have been created in the governance system of the Compound protocol. This function is used to keep track of the number of proposals.
+
+---
+
+### 2.0 CONTRACT REVIEW
+SPDX License and Solidity Version Declaration
+```
+// SPDX-License-Identifier: BSD-3-Clause
+pragma solidity ^0.8.10;
+```
+The SPDX identifier indicates the license type (BSD-3-Clause), which is a permissive license.
+The pragma statement sets the Solidity version to 0.
 
 
