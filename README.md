@@ -12,13 +12,13 @@
 
 ### Table of Contents
 1. [INTRODUCTION](#10-introduction)  
-   1.1 [Disclaimer](#11-disclaimer)  
-   1.2 [About Me](#12-about-me)  
-   1.3 [Skills](#13-skills)  
-   1.4 [Links](#14-links)  
+   1.1 [About Me](#11-about-me)  
+   1.2 [Skills](#12-skills) 
+   1.3 [Links](#13-links)  
+   1.4 [Compound Protocol](#14-compund-protocol)  
    1.5 [Compound Governance](#15-compound-governance)  
    1.6 [GovernorBravoDelegate](#16-governorbravodelegate)  
-   1.7 [Scope](#17-scope)  
+   1.7 [Contracts Structure](#17-contracts-structure)  
    1.8 [Roles](#18-roles)  
    1.9 [System Overview](#19-system-overview)  
 2. [CONTRACT REVIEW](#20-contract-review)  
@@ -33,20 +33,17 @@
 
 ### 1.0 INTRODUCTION
 
-#### 1.1 Disclaimer  
-This audit is a professional assessment based on the provided contract information and my knowledge in blockchain security. This audit is **not** a guarantee of the contract's security and cannot eliminate all potential vulnerabilities. Investing in smart contracts entails risks, and this review does not ensure financial or operational outcomes. Users are urged to conduct additional independent reviews and due diligence before participating in or investing in the contract.
-
-#### 1.2 About Me  
+#### 1.1 About Me  
 Hello, I'm Angella Mulikatete, a Software Engineer, Smart Contract Developer. My background is grounded in Web2,web3(blockchain development), with a focus on producing secure, efficient smart contracts that can reshape how we interact with digital assets.
 
-#### 1.3 Skills  
+#### 1.2 Skills  
 - Solidity, Diamond Standard, Foundry, Hardhat, React, Nestjs, Laravel, NextJs
-#### 1.4 Links  
+#### 1.3 Links  
 - [LinkedIn](https://www.linkedin.com/in/angella-mulikatete-7b83371a2/)  
 - [Twitter](https://x.com/AMulikatete)  
 
 ---
-### 1.5 Compound Protocol
+### 1.4 Compound Protocol
 The Compound Protocol is a decentralized finance (DeFi) application that allows users to lend and borrow cryptocurrencies in a trustless manner. It operates on the Ethereum blockchain and is known for its algorithmic interest rate model that adjusts based on supply and demand
 
 ####  Components of the Compound Protocol
@@ -57,7 +54,7 @@ The Compound Protocol is a decentralized finance (DeFi) application that allows 
 4. **Collateralization**:To borrow assets, users must provide collateral. The collateral must exceed the value of the borrowed assets to ensure the protocol's solvency. If the value of the collateral falls below a certain threshold, it can be liquidated to cover the loan.
 5. **Governance**: Compound is governed by its community of token holders who hold COMP tokens. These tokens grant governance rights, allowing holders to propose changes to the protocol, vote on proposals, and influence future developments.
    
-### 1.6 Compound Governance
+### 1.5 Compound Governance
 Compound Governance refers to the decentralized governance system employed by Compound Finance, a prominent decentralized finance (DeFi) protocol. Compound Finance is built on the Ethereum blockchain and provides lending and borrowing services for various cryptocurrencies.
 
 The governance mechanism allows token holders to participate in the decision-making process regarding the protocol's development, changes, and upgrades. The native token of Compound, COMP, plays a central role in this governance system.
@@ -69,7 +66,7 @@ The governance mechanism allows token holders to participate in the decision-mak
 3. **Voting Mechanism**:  Proposals are voted on by COMP holders. Each token represents one vote, and proposals require a majority of votes to pass. Voting takes place over a defined period, typically one week.
 4. **Timelock**:Once a proposal is passed, it goes into a timelock period before implementation. This provides an opportunity for users to respond to the proposal before it is enacted.
 
-### 1.7 GovernorBravoDelegate  
+### 1.6 GovernorBravoDelegate  
 GovernorBravoDelegate contract is an implementation of the governance mechanism used in Compound. It is a contract that handles the logic for proposing and voting on changes to the protocol
 
 ####  Components of the Compound Governance
@@ -82,7 +79,7 @@ GovernorBravoDelegate contract is an implementation of the governance mechanism 
 6. **Whitelist Management**: The contract may incorporate features for managing a whitelist of accounts that can participate in certain governance activities.
 7. **Vote Recording:**:The `GovernorBravoEvents` contract emits events during key actions, such as proposal creation, voting, and changes to governance parameters, which helps in tracking the protocol's governance activities on-chain.
 
-###1.8 Contracts Structure
+### 1.7 Contracts Structure
 
 1. **GovernorBravoEvents**: Defines all events emitted during governance activities.
 2. **GovernorBravoDelegatorStorage**: Contains base storage variables and access control (`admin`, `pendingAdmin`).
