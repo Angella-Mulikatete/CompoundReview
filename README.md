@@ -37,11 +37,10 @@
 This audit is a professional assessment based on the provided contract information and my knowledge in blockchain security. This audit is **not** a guarantee of the contract's security and cannot eliminate all potential vulnerabilities. Investing in smart contracts entails risks, and this review does not ensure financial or operational outcomes. Users are urged to conduct additional independent reviews and due diligence before participating in or investing in the contract.
 
 #### 1.2 About Me  
-Hello, I'm Samuel Dahunsi, a Smart Contract Developer with practical experience from my internship at Web3bridge. My background is grounded in blockchain development, with a focus on producing secure, efficient smart contracts that can reshape how we interact with digital assets.
+Hello, I'm Angella Mulikatete, a Software Engineer, Smart Contract Developer. My background is grounded in Web2 , web3(blockchain development), with a focus on producing secure, efficient smart contracts that can reshape how we interact with digital assets.
 
 #### 1.3 Skills  
-- Solidity, Diamond Standard, Foundry, Hardhat, Wagmi, Ethers.js, React, JavaScript, HTML, CSS
-
+- Solidity, Diamond Standard, Foundry, Hardhat, React, Nestjs, Laravel, NextJs
 #### 1.4 Links  
 - [LinkedIn](https://www.linkedin.com/in/angella-mulikatete-7b83371a2/)  
 - [Twitter](https://x.com/AMulikatete)  
