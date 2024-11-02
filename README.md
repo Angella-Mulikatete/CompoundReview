@@ -1,12 +1,12 @@
 # GovernorBravo Smart Contract
-| Title            | Smart Contract Review Report   |
+| Title            | Smart Contract Review Report  |
 |------------------|-------------------------------|
 | **Target**       | GovernorBravoDelegateG2       |
 | **Version**      | 1.0                           |
 | **Author**       | Angella Mulikatete            |
 | **Classification** | Public                      |
 | **Status**       | Draft                         |
-| **Date Created** | 2nd Nov, 2024          |
+| **Date Created** | 2nd Nov, 2024                 |
 
 ---
 
