@@ -11,22 +11,23 @@
 ---
 
 ### Table of Contents
-1. [**INTRODUCTION**](#introduction)  
-   1.1 [**Disclaimer**](#disclaimer)  
-   1.2 [**About Me**](#about-me)  
-   1.3 [**Skills**](#skills)  
-   1.4 [**Link**](#link)  
-   1.5 [**Compound Governance**](#compound-governance)  
-   1.6 [**GovernorBravoDelegate**](#governorbravodelegate)  
-   1.7 [**Scope**](#scope)  
-   1.8 [**Roles**](#roles)  
-   1.9 [**System Overview**](#system-overview)  
-2. [**CONTRACT REVIEW**](#contract-review)  
-3. [**FINDINGS**](#findings)  
-   3.1 [**Qualitative Analysis**](#qualitative-analysis)  
-   3.2 [**Summary**](#summary)  
-   3.3 [**Recommendations**](#recommendations)  
-4. [**CONCLUSION**](#conclusion)   
+1. [INTRODUCTION](#10-introduction)  
+   1.1 [Disclaimer](#11-disclaimer)  
+   1.2 [About Me](#12-about-me)  
+   1.3 [Skills](#13-skills)  
+   1.4 [Links](#14-links)  
+   1.5 [Compound Governance](#15-compound-governance)  
+   1.6 [GovernorBravoDelegate](#16-governorbravodelegate)  
+   1.7 [Scope](#17-scope)  
+   1.8 [Roles](#18-roles)  
+   1.9 [System Overview](#19-system-overview)  
+2. [CONTRACT REVIEW](#20-contract-review)  
+3. [FINDINGS](#30-findings)  
+   3.1 [Qualitative Analysis](#31-qualitative-analysis)  
+   3.2 [Summary](#32-summary)  
+   3.3 [Recommendations](#33-recommendations)  
+4. [CONCLUSION](#40-conclusion)  
+
 
 ---
 
