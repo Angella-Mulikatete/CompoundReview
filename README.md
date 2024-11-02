@@ -49,7 +49,7 @@ Hello, I'm Angella Mulikatete, a Software Engineer, Smart Contract Developer. My
 ### 1.5 Compound Protocol
 The Compound Protocol is a decentralized finance (DeFi) application that allows users to lend and borrow cryptocurrencies in a trustless manner. It operates on the Ethereum blockchain and is known for its algorithmic interest rate model that adjusts based on supply and demand
 
-##  Components of the Compound Protocol
+####  Components of the Compound Protocol
 
 1. **Lending and Borrowing**: DUsers can supply assets to the Compound protocol to earn interest or borrow assets by providing collateral. The protocol calculates interest rates algorithmically based on the current utilization of the assets.
 2. **cTokens**: When users supply assets to Compound, they receive cTokens in return. These tokens represent the user's share in the Compound pool and accrue interest over time. For example, if a user supplies DAI, they receive cDAI, which can be redeemed for the underlying DAI plus interest.
@@ -61,7 +61,8 @@ The Compound Protocol is a decentralized finance (DeFi) application that allows 
 Compound Governance refers to the decentralized governance system employed by Compound Finance, a prominent decentralized finance (DeFi) protocol. Compound Finance is built on the Ethereum blockchain and provides lending and borrowing services for various cryptocurrencies.
 
 The governance mechanism allows token holders to participate in the decision-making process regarding the protocol's development, changes, and upgrades. The native token of Compound, COMP, plays a central role in this governance system.
-##  Components of the Compound Governance
+
+####  Components of the Compound Governance
 
 1. **COMP Token**: The COMP token is the native governance token of the Compound Protocol. Users can earn COMP tokens by supplying or borrowing assets on the platform. COMP holders can participate in governance by voting on proposals or creating new proposals.
 2. **Governance Proposals**: Any user with COMP tokens can submit governance proposals. These proposals can include changes to the protocol parameters, such as interest rates, collateral factors, or the addition of new assets.
@@ -69,19 +70,19 @@ The governance mechanism allows token holders to participate in the decision-mak
 4. **Timelock**:Once a proposal is passed, it goes into a timelock period before implementation. This provides an opportunity for users to respond to the proposal before it is enacted.
 
 ### 1.7 GovernorBravoDelegate  
-The GovernorBravoDelegate contract is integral to Compound’s governance, enabling token holders to create proposals and vote on protocol changes, such as asset listings and rate adjustments. The contract defines constants and functions regulating governance parameters, including voting period lengths, quorum requirements, and proposal thresholds. Its critical role underpins Compound’s decentralized and community-managed protocol structure.  
+GovernorBravoDelegate contract is an implementation of the governance mechanism used in Compound. It is a contract that handles the logic for proposing and voting on changes to the protocol
 
-### 1.8 Contract Overview
-The `GovernorBravo` contract suite is part of a decentralized governance system, supporting proposals, voting, and administrative updates. It is designed with modular storage for upgradeability and future expansion, using event-driven tracking for proposal actions and a timelock for proposal execution. The contract also includes a whitelisting mechanism for privileged account access.
+####  Components of the Compound Governance
 
-## Features
-- **Proposal Management**: Create, vote, cancel, queue, and execute governance proposals.
-- **Voting Power Snapshot**: Utilize historical voting power from governance token holders.
-- **Timelock Execution**: Enforce delays on proposal execution to ensure decentralized control and allow community input before enactment.
-- **Modular Storage Architecture**: Organized across multiple storage contracts (`V1` and `V2`) for versioned upgradeability.
-- **Whitelist Management**: Control privileged accounts through expiration and guardian role.
+1. **Proposal Creation**: Users can create proposals that specify actions to be taken, including calling specific functions on other contracts with parameters defined in the proposal.
+2. **Voting Process**: The contract manages the voting process, allowing users to cast their votes for or against proposals during a specified voting period.
+3. **Proposal States**: Proposals can have various states, including Pending, Active, Canceled, Succeeded, Queued, Expired, and Executed. The state of a proposal dictates what actions can be taken at any given time.
+4. **Vote Recording**:The contract records votes and maintains receipts that track which addresses voted and how they voted.
+5. **Implementation Upgrades**: The `GovernorBravoDelegate` also allows for upgrades to the governance logic itself by enabling a new implementation address to be set, which is important for evolving the governance mechanisms.
+6. **Whitelist Management**: The contract may incorporate features for managing a whitelist of accounts that can participate in certain governance activities.
+7. **Vote Recording:**:The `GovernorBravoEvents` contract emits events during key actions, such as proposal creation, voting, and changes to governance parameters, which helps in tracking the protocol's governance activities on-chain.
 
-## Contracts Structure
+###1.8 Contracts Structure
 
 1. **GovernorBravoEvents**: Defines all events emitted during governance activities.
 2. **GovernorBravoDelegatorStorage**: Contains base storage variables and access control (`admin`, `pendingAdmin`).
