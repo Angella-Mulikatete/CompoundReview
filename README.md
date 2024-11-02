@@ -14,7 +14,6 @@
 1. [INTRODUCTION](#10-introduction)  
    1.1 [About Me](#11-about-me)  
    1.2 [Skills](#12-skills)
-   
    1.3 [Links](#13-links)  
    1.4 [Compound Protocol](#14-compound-protocol)  
    1.5 [Compound Governance](#15-compound-governance)  
