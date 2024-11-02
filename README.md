@@ -19,14 +19,12 @@
    1.5 [Compound Governance](#15-compound-governance)  
    1.6 [GovernorBravoDelegate](#16-governorbravodelegate)  
    1.7 [Contracts Structure](#17-contracts-structure)  
-   1.8 [Roles](#18-roles)  
-   1.9 [System Overview](#19-system-overview)  
-3. [CONTRACT REVIEW](#20-contract-review)  
-4. [FINDINGS](#30-findings)  
+2. [CONTRACT REVIEW](#20-contract-review)  
+3. [FINDINGS](#30-findings)  
    3.1 [Qualitative Analysis](#31-qualitative-analysis)  
    3.2 [Summary](#32-summary)  
    3.3 [Recommendations](#33-recommendations)  
-5. [CONCLUSION](#40-conclusion)  
+4. [CONCLUSION](#40-conclusion)  
 
 
 ---
@@ -101,4 +99,50 @@ pragma solidity ^0.8.10;
 The SPDX identifier indicates the license type (BSD-3-Clause), which is a permissive license.
 The pragma statement sets the Solidity version to 0.
 
+The contract contains the following state constant variables:
+```
+string public constant name = "Compound Governor Bravo";
+```
+This line sets the name of the contract to "Compound Governor Bravo." It’s a public, constant variable, meaning it cannot be changed after deployment and helps identify the contract’s purpose for users and interfaces interacting with it.
+```
+uint public constant MIN_PROPOSAL_THRESHOLD = 50000e18; // 50,000 Comp
+uint public constant MAX_PROPOSAL_THRESHOLD = 100000e18; // 100,000 Comp
+```
+Proposal Threshold is the minimum amount of COMP tokens a user needs to propose changes to the Compound protocol.
+These constants define the minimum (MIN_PROPOSAL_THRESHOLD) and maximum (MAX_PROPOSAL_THRESHOLD) values for this threshold. The values are set at 50,000 COMP and 100,000 COMP, respectively, allowing flexibility within these boundaries.
+This range is crucial for balancing accessibility with security. Setting the threshold too low could allow low-value proposals that clutter governance, while setting it too high could restrict participation to only large holders.
 
+```
+uint public constant MIN_VOTING_PERIOD = 5760; // About 24 hours
+uint public constant MAX_VOTING_PERIOD = 80640; // About 2 weeks
+```
+Voting Period refers to the duration over which a proposal is open for voting. Here, it ranges from a minimum of about 24 hours to a maximum of about 2 weeks (depending on block times).
+These limits ensure that proposals have a reasonable time window for participation, which supports adequate debate and consensus while preventing extended periods that could delay protocol updates.
+
+```
+uint public constant MIN_VOTING_DELAY = 1;
+uint public constant MAX_VOTING_DELAY = 40320; // About 1 week
+```
+Voting Delay is the time between the proposal’s submission and the start of the voting period. This delay allows token holders to prepare for voting on the proposal.
+With a minimum delay of 1 and a maximum of about 1 week, this parameter ensures that there’s enough time to notify stakeholders, yet not too long to delay governance unnecessarily
+
+```
+uint public constant quorumVotes = 400000e18; // 400,000 = 4% of Comp
+```
+Quorum Votes is the number of votes required for a proposal to be considered valid. For this contract, it’s set at 400,000 multiplied by 10^18 COMP (4% of the total COMP supply).
+This ensures that proposals can only pass if they achieve enough community support, preventing low-turnout decisions that may not reflect the will of the wider Compound community.
+
+```
+uint public constant proposalMaxOperations = 10; // 10 actions
+```
+This constant limits each proposal to a maximum of 10 actions (such as function calls or state changes).
+```
+bytes32 public constant DOMAIN_TYPEHASH = keccak256("EIP712Domain(string name,uint256 chainId,address verifyingContract)");
+```
+EIP-712 is a standard for typed, structured data hashing and signing. This `DOMAIN_TYPEHASH` value helps create the domain separator for EIP-712-compliant signatures.
+The domain separator ensures that signatures are bound to this specific contract (and not reused in other contexts), providing security for off-chain voting through signed messages.
+
+```
+bytes32 public constant BALLOT_TYPEHASH = keccak256("Ballot(uint256 proposalId,uint8 support)");
+```
+This `BALLOT_TYPEHASH` is the EIP-712 typehash used for votes or “ballots” cast by users. It specifies the structure of the data to be signed, including the proposal ID and the support type (e.g., for, against).
