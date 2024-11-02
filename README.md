@@ -167,12 +167,35 @@ The following functions are part of the compound governance contract
         proposalThreshold = proposalThreshold_;
     }
 ```
-This initialize function in the GovernorBravoDelegate contract is used in setting up the Compound governance contract's parameters and dependencies.  It sets core configuration parameters that define how governance proposals will be created, voted on, and executed. 
-This function is only called once, as indicated by the require checks, and it can only be called by the contract’s admin.
-Parameters:
+This initialize function in the GovernorBravoDelegate contract is used in setting up the Compound governance contract's parameters and dependencies.  It sets core configuration parameters that define how governance proposals will be created, voted on, and executed. This function is only called once, as indicated by the require checks, and it can only be called by the contract’s admin.
 
-address timelock_: Address of the Timelock contract, which enforces a delay for executing proposals. This delay ensures time for users to adjust positions before a passed proposal is executed.
-address comp_: Address of the COMP token contract, which is the governance token of Compound. Only users holding COMP can vote and participate in governance.
-uint votingPeriod_: Duration of the voting period (in blocks), determining how long a proposal is open for voting.
-uint votingDelay_: Delay (in blocks) between the proposal creation and the start of voting, allowing users to prepare before voting begins.
-uint proposalThreshold_: Minimum amount of COMP tokens required to create a proposal. This helps prevent spam by ensuring that only significant stakeholders can propose changes.
+#### Parameters:
+1. **address timelock_**: Address of the Timelock contract, which enforces a delay for executing proposals. This delay ensures time for users to adjust positions before a passed proposal is executed.
+2. **address comp_**: Address of the COMP token contract, which is the governance token of Compound. Only users holding COMP can vote and participate in governance.
+3. **uint votingPeriod_**: Duration of the voting period (in blocks), determining how long a proposal is open for voting.
+4. **uint votingDelay_**: Delay (in blocks) between the proposal creation and the start of voting, allowing users to prepare before voting begins.
+5. **uint proposalThreshold_**: Minimum amount of COMP tokens required to create a proposal. This helps prevent spam by ensuring that only significant stakeholders can propose changes.
+
+#### KeyChecks
+
+1. `require(address(timelock) == address(0), "can only initialize once")`: Ensures that the contract is initialized only once by checking that the timelock address has not been set previously. This prevents reinitialization, which could disrupt governance settings.
+2. `require(msg.sender == admin, "admin only")`: Ensures that only the admin (presumably the deployer or a trusted account) can initialize the contract, providing security against unauthorized changes.
+3. `require(timelock_ != address(0), "invalid timelock address")` and `require(comp_ != address(0), "invalid comp address")`: Verifies that valid addresses are passed for the Timelock and COMP contracts. Null addresses would cause errors in governance functionality.
+4. `require(votingPeriod_ >= MIN_VOTING_PERIOD && votingPeriod_ <= MAX_VOTING_PERIOD, "invalid voting period")`: Ensures the votingPeriod falls within allowed boundaries (e.g., between a minimum and maximum number of blocks). This prevents setting unreasonably short or long voting periods, which could disrupt governance.
+5. `require(votingDelay_ >= MIN_VOTING_DELAY && votingDelay_ <= MAX_VOTING_DELAY, "invalid voting delay")`: Validates that the votingDelay is within a set range to ensure fair participation.
+6. `require(proposalThreshold_ >= MIN_PROPOSAL_THRESHOLD && proposalThreshold_ <= MAX_PROPOSAL_THRESHOLD, "invalid proposal threshold")`: Validates the proposalThreshold, ensuring it is neither too low (which could lead to spam) nor too high (which could prevent genuine governance).
+
+#### Setting statevariables
+
+1. `timelock = TimelockInterface(timelock_)`:  Sets the timelock address, allowing proposals to be subject to a delay after they pass but before they are executed.
+2. `comp = CompInterface(comp_)`: Sets the comp address, enabling the contract to interact with the COMP token for governance rights.
+3. `votingPeriod = votingPeriod_, votingDelay = votingDelay_, proposalThreshold = proposalThreshold_`: Sets the votingPeriod, votingDelay, and proposalThreshold variables with the provided values, configuring the governance process parameters.
+
+   
+
+
+
+
+
+
+
