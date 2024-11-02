@@ -13,20 +13,20 @@
 ### Table of Contents
 1. [INTRODUCTION](#10-introduction)  
    1.1 [About Me](#11-about-me)  
-   1.2 [Skills](#12-skills) 
+   1.2 [Skills](#12-skills)
    1.3 [Links](#13-links)  
-   1.4 [Compound Protocol](#14-compund-protocol)  
+   1.4 [Compound Protocol](#14-compound-protocol)  
    1.5 [Compound Governance](#15-compound-governance)  
    1.6 [GovernorBravoDelegate](#16-governorbravodelegate)  
    1.7 [Contracts Structure](#17-contracts-structure)  
    1.8 [Roles](#18-roles)  
    1.9 [System Overview](#19-system-overview)  
-2. [CONTRACT REVIEW](#20-contract-review)  
-3. [FINDINGS](#30-findings)  
+3. [CONTRACT REVIEW](#20-contract-review)  
+4. [FINDINGS](#30-findings)  
    3.1 [Qualitative Analysis](#31-qualitative-analysis)  
    3.2 [Summary](#32-summary)  
    3.3 [Recommendations](#33-recommendations)  
-4. [CONCLUSION](#40-conclusion)  
+5. [CONCLUSION](#40-conclusion)  
 
 
 ---
