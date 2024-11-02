@@ -11,22 +11,22 @@
 ---
 
 ### Table of Contents
-1. **INTRODUCTION**  
-   1.1 **Disclaimer**  
-   1.2 **About Me**  
-   1.3 **Skills**  
-   1.4 **Link**  
-   1.5 **Compound Governance**  
-   1.6 **GovernorBravoDelegate**  
-   1.7 **Scope**  
-   1.8 **Roles**  
-   1.9 **System Overview**  
-2. **CONTRACT REVIEW**  
-3. **FINDINGS**  
-   3.1 **Qualitative Analysis**  
-   3.2 **Summary**  
-   3.3 **Recommendations**  
-4. **CONCLUSION**  
+1. [**INTRODUCTION**](#introduction)  
+   1.1 [**Disclaimer**](#disclaimer)  
+   1.2 [**About Me**](#about-me)  
+   1.3 [**Skills**](#skills)  
+   1.4 [**Link**](#link)  
+   1.5 [**Compound Governance**](#compound-governance)  
+   1.6 [**GovernorBravoDelegate**](#governorbravodelegate)  
+   1.7 [**Scope**](#scope)  
+   1.8 [**Roles**](#roles)  
+   1.9 [**System Overview**](#system-overview)  
+2. [**CONTRACT REVIEW**](#contract-review)  
+3. [**FINDINGS**](#findings)  
+   3.1 [**Qualitative Analysis**](#qualitative-analysis)  
+   3.2 [**Summary**](#summary)  
+   3.3 [**Recommendations**](#recommendations)  
+4. [**CONCLUSION**](#conclusion)   
 
 ---
 
