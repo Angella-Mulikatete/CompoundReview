@@ -1,4 +1,13 @@
 # GovernorBravo Smart Contract
+| Title            | Smart Contract Review Report   |
+|------------------|-------------------------------|
+| **Target**       | GovernorBravoDelegateG2       |
+| **Version**      | 1.0                           |
+| **Author**       | Angella Mulikatete            |
+| **Classification** | Public                      |
+| **Status**       | Draft                         |
+| **Date Created** | 2nd Nov, 2024          |
+
 
 ## Overview
 The `GovernorBravo` contract suite is part of a decentralized governance system, supporting proposals, voting, and administrative updates. It is designed with modular storage for upgradeability and future expansion, using event-driven tracking for proposal actions and a timelock for proposal execution. The contract also includes a whitelisting mechanism for privileged account access.
