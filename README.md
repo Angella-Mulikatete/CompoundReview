@@ -1,4 +1,3 @@
-# CompoundReview
 # GovernorBravo Smart Contract
 
 ## Overview
