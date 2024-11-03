@@ -32,7 +32,7 @@
 ### 1.0 INTRODUCTION
 
 #### 1.1 About Me  
-Hello, I'm Angella Mulikatete, a Software Engineer, Smart Contract Developer. My background is grounded in Web2,web3(blockchain development), with a focus on producing secure, efficient smart contracts that can reshape how we interact with digital assets.
+Hello, I'm Angella Mulikatete, a Software Engineer, Smart Contract Developer. My background is grounded in Web2,web3(blockchain development), with a focus on producing secure, efficient smart contracts.
 
 #### 1.2 Skills  
 - Solidity, Diamond Standard, Foundry, Hardhat, React, Nestjs, Laravel, NextJs
