@@ -268,7 +268,7 @@ This Propose() function allows a user to create a proposal for governance.
       require(proposersLatestProposalState != ProposalState.Active, "GovernorBravo::propose: one live proposal per proposer, found an already active proposal");
       require(proposersLatestProposalState != ProposalState.Pending, "GovernorBravo::propose: one live proposal per proposer, found an already pending proposal");
    }
-   ```:
+   
 This is Proposer’s Existing Proposal Check Limits each proposer to one active proposal at a time. This prevents any single proposer from flooding the system with multiple proposals simultaneously, thereby encouraging thoughtful proposal creation. If the proposer already has a pending or active proposal, they cannot create a new one.
 
 #### Setting Proposal Timeline
