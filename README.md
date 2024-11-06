@@ -382,10 +382,10 @@ if (support == 0) {
     proposal.abstainVotes = add256(proposal.abstainVotes, votes);
 }
 ```
--This if-else block updates the proposal’s vote counts based on the voter’s support value:
-  - If **support == 0**, adds the voter’s votes to **againstVotes**.
-  - If **support == 1**, adds to **forVotes**.
-  - If **support == 2**, adds to **abstainVotes**.
+- This if-else block updates the proposal’s vote counts based on the voter’s support value:
+    - If **support == 0**, adds the voter’s votes to **againstVotes**.
+    - If **support == 1**, adds to **forVotes**.
+    - If **support == 2**, adds to **abstainVotes**.
 
 ```
 receipt.hasVoted = true;
