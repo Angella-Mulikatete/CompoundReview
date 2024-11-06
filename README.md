@@ -265,9 +265,10 @@ This Propose() function allows a user to create a proposal for governance.
    uint latestProposalId = latestProposalIds[msg.sender];
    if (latestProposalId != 0) {
        ProposalState proposersLatestProposalState = state(latestProposalId);
-   require(proposersLatestProposalState != ProposalState.Active, "GovernorBravo::propose: one live proposal per proposer, found an already active proposal");
-   require(proposersLatestProposalState != ProposalState.Pending, "GovernorBravo::propose: one live proposal per proposer, found an already pending proposal");
-   }```:
+      require(proposersLatestProposalState != ProposalState.Active, "GovernorBravo::propose: one live proposal per proposer, found an already active proposal");
+      require(proposersLatestProposalState != ProposalState.Pending, "GovernorBravo::propose: one live proposal per proposer, found an already pending proposal");
+   }
+   ```:
 This is Proposer’s Existing Proposal Check Limits each proposer to one active proposal at a time. This prevents any single proposer from flooding the system with multiple proposals simultaneously, thereby encouraging thoughtful proposal creation. If the proposer already has a pending or active proposal, they cannot create a new one.
 
 #### Setting Proposal Timeline
@@ -279,4 +280,40 @@ These variables define the time frame for voting, ensuring all proposals follow 
    - `startBlock`: Sets the block number when voting will begin, with a delay specified by `votingDelay`.
    - `endBlock`: Sets the block number when voting will end, calculated as `startBlock + votingPeriod`.
 
+#### Proposal Creation and Storage
 
+```
+proposalCount++;
+Proposal memory newProposal = Proposal({
+    id: proposalCount,
+    proposer: msg.sender,
+    eta: 0,
+    targets: targets,
+    values: values,
+    signatures: signatures,
+    calldatas: calldatas,
+    startBlock: startBlock,
+    endBlock: endBlock,
+    forVotes: 0,
+    againstVotes: 0,
+    abstainVotes: 0,
+    canceled: false,
+    executed: false
+});
+
+proposals[newProposal.id] = newProposal;
+latestProposalIds[newProposal.proposer] = newProposal.id;
+``` 
+This creates and records the proposal details on-chain, making it available for governance participants to review and vote on.
+  - Increments the total number of proposals (`proposalCount`).
+  - Initializes a new `Proposal` struct with the input details and timeline information.
+  - Stores the proposal in the `proposals` mapping and updates the latest proposal ID for the proposer.
+    
+#### Emitting Proposal Creation Event
+```
+emit ProposalCreated(newProposal.id, msg.sender, targets, values, signatures, calldatas, startBlock, endBlock, description);
+return newProposal.id;
+```
+ The event enables off-chain tracking of new proposals and provides transparency for all stakeholders. Emitting events also helps frontends display proposal details and status in real-time.
+   - Emits a ProposalCreated event to record the creation of a new proposal, which includes the proposal’s unique ID, proposer, actions, voting timeline, and description.
+   - Returns the new proposal ID to the caller.
