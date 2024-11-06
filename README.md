@@ -317,3 +317,79 @@ return newProposal.id;
  The event enables off-chain tracking of new proposals and provides transparency for all stakeholders. Emitting events also helps frontends display proposal details and status in real-time.
    - Emits a ProposalCreated event to record the creation of a new proposal, which includes the proposal’s unique ID, proposer, actions, voting timeline, and description.
    - Returns the new proposal ID to the caller.
+     
+#### 2.1 castVoteInternal(): is an internal function in that processes a user’s vote on a proposal within Compound Governance.
+```
+function castVoteInternal(address voter, uint proposalId, uint8 support) internal returns (uint96) {
+        require(state(proposalId) == ProposalState.Active, "GovernorBravo::castVoteInternal: voting is closed");
+        require(support <= 2, "GovernorBravo::castVoteInternal: invalid vote type");
+        Proposal storage proposal = proposals[proposalId];
+        Receipt storage receipt = proposal.receipts[voter];
+        require(receipt.hasVoted == false, "GovernorBravo::castVoteInternal: voter already voted");
+        uint96 votes = comp.getPriorVotes(voter, proposal.startBlock);
+
+        if (support == 0) {
+            proposal.againstVotes = add256(proposal.againstVotes, votes);
+        } else if (support == 1) {
+            proposal.forVotes = add256(proposal.forVotes, votes);
+        } else if (support == 2) {
+            proposal.abstainVotes = add256(proposal.abstainVotes, votes);
+        }
+
+        receipt.hasVoted = true;
+        receipt.support = support;
+        receipt.votes = votes;
+
+        return votes;
+    }
+```
+##### Parameters:
+1. **voter**:The address of the voter casting the vote.
+2. **proposalId**: The ID of the proposal on which the vote is being cast.
+3. **support**:  Indicates the type of vote: **0** for "Against," **1** for "For," and **2** for "Abstain."
+####Return Value:  It returns **votes**, which represents the number of votes (COMP tokens) the voter holds at the time of voting.
+
+```
+require(state(proposalId) == ProposalState.Active, "GovernorBravo::castVoteInternal: voting is closed");
+```
+ - This checks if the proposal is in the Active state, meaning that it’s currently open for voting. If it’s not, the function reverts with an error message.
+ -  This ensures that votes can only be cast during the designated voting period, maintaining the integrity of the voting process.
+```
+require(support <= 2, "GovernorBravo::castVoteInternal: invalid vote type");
+```
+ - This line checks if the **support** parameter is within the valid range (0, 1, or 2).
+ -  This validation prevents invalid vote types and ensures that votes are either “Against,” “For,” or “Abstain.”
+
+```
+Proposal storage proposal = proposals[proposalId];
+Receipt storage receipt = proposal.receipts[voter];
+require(receipt.hasVoted == false, "GovernorBravo::castVoteInternal: voter already voted");
+```
+ - **proposal** : Fetches the proposal data from storage using the **proposalId**.
+ -  **receipt** :  Fetches the **Receipt** associated with the specific **voter** for the proposal.
+ -  **require(receipt.hasVoted == false, ...)**: Checks if the voter has already voted on the proposal. If hasVoted is true, it reverts to prevent double-voting.
+
+```
+uint96 votes = comp.getPriorVotes(voter, proposal.startBlock);
+```
+- Calls getPriorVotes on the COMP token contract, which retrieves the number of COMP tokens the voter held at the block number corresponding to the proposal’s startBlock.
+```
+if (support == 0) {
+    proposal.againstVotes = add256(proposal.againstVotes, votes);
+} else if (support == 1) {
+    proposal.forVotes = add256(proposal.forVotes, votes);
+} else if (support == 2) {
+    proposal.abstainVotes = add256(proposal.abstainVotes, votes);
+}
+```
+-This if-else block updates the proposal’s vote counts based on the voter’s support value:
+  - If **support == 0**, adds the voter’s votes to **againstVotes**.
+  - If **support == 1**, adds to **forVotes**.
+  - If **support == 2**, adds to **abstainVotes**.
+
+```
+receipt.hasVoted = true;
+receipt.support = support;
+receipt.votes = votes;
+```
+ - Updates the receipt to indicate that the voter has voted (hasVoted = true), stores the type of vote (support), and records the number of votes the voter cast.
