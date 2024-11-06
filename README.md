@@ -191,8 +191,76 @@ This initialize function in the GovernorBravoDelegate contract is used in settin
 2. `comp = CompInterface(comp_)`: Sets the comp address, enabling the contract to interact with the COMP token for governance rights.
 3. `votingPeriod = votingPeriod_, votingDelay = votingDelay_, proposalThreshold = proposalThreshold_`: Sets the votingPeriod, votingDelay, and proposalThreshold variables with the provided values, configuring the governance process parameters.
 
-   
+#### 2.2 propose()
+It defines the process for submitting a new proposal in the Compound Governance system
+```
+function propose(address[] memory targets, uint[] memory values, string[] memory signatures, bytes[] memory calldatas, string memory description) public returns (uint) {
+        // Reject proposals before initiating as Governor
+        require(initialProposalId != 0, "GovernorBravo::propose: Governor Bravo not active");
+        // Allow addresses above proposal threshold and whitelisted addresses to propose
+        require(comp.getPriorVotes(msg.sender, sub256(block.number, 1)) > proposalThreshold || isWhitelisted(msg.sender), "GovernorBravo::propose: proposer votes below proposal threshold");
+        require(targets.length == values.length && targets.length == signatures.length && targets.length == calldatas.length, "GovernorBravo::propose: proposal function information arity mismatch");
+        require(targets.length != 0, "GovernorBravo::propose: must provide actions");
+        require(targets.length <= proposalMaxOperations, "GovernorBravo::propose: too many actions");
 
+        uint latestProposalId = latestProposalIds[msg.sender];
+        if (latestProposalId != 0) {
+          ProposalState proposersLatestProposalState = state(latestProposalId);
+          require(proposersLatestProposalState != ProposalState.Active, "GovernorBravo::propose: one live proposal per proposer, found an already active proposal");
+          require(proposersLatestProposalState != ProposalState.Pending, "GovernorBravo::propose: one live proposal per proposer, found an already pending proposal");
+        }
+
+        uint startBlock = add256(block.number, votingDelay);
+        uint endBlock = add256(startBlock, votingPeriod);
+
+        proposalCount++;
+        Proposal memory newProposal = Proposal({
+            id: proposalCount,
+            proposer: msg.sender,
+            eta: 0,
+            targets: targets,
+            values: values,
+            signatures: signatures,
+            calldatas: calldatas,
+            startBlock: startBlock,
+            endBlock: endBlock,
+            forVotes: 0,
+            againstVotes: 0,
+            abstainVotes: 0,
+            canceled: false,
+            executed: false
+        });
+
+        proposals[newProposal.id] = newProposal;
+        latestProposalIds[newProposal.proposer] = newProposal.id;
+
+        emit ProposalCreated(newProposal.id, msg.sender, targets, values, signatures, calldatas, startBlock, endBlock, description);
+        return newProposal.id;
+    }
+```
+#### Function Definition and Input Parameters
+```
+function propose(address[] memory targets, uint[] memory values, string[] memory signatures, bytes[] memory calldatas, string memory description) public returns (uint) {
+```
+##### Purpose: 
+This function allows a user to create a proposal for governance.
+
+##### Parameters:
+1. **targets**: The addresses of the contracts to be called.
+2. **values**: The ETH values (if any) to be sent to each target address.
+3. **signatures**: The function signatures to call on each target contract.
+4. **calldatas**: The data (arguments) for each function call.
+5. **description**:A brief description of the proposal.
+
+#### KeyChecks
+
+1. `require(initialProposalId != 0, "GovernorBravo::propose: Governor Bravo not active");` : Ensures that the contract has been initialized and is active. This prevents proposals from being submitted if the governance system (GovernorBravo) hasn’t been properly initiated, thereby avoiding unintended proposals.
+2. `require(comp.getPriorVotes(msg.sender, sub256(block.number, 1)) > proposalThreshold || isWhitelisted(msg.sender), "GovernorBravo::propose: proposer votes below proposal threshold");
+`: This is proposal eligibility check that Checks if the proposer has enough votes to meet the proposal threshold or is whitelisted so as to ensure that only participants with significant voting power (or those explicitly whitelisted) can create proposals. This helps maintain quality and prevents spam by requiring proposers to have a certain level of influence.
+3. `require(targets.length == values.length && targets.length == signatures.length && targets.length == calldatas.length, "GovernorBravo::propose: proposal function information arity mismatch")` and `require(targets.length != 0, "GovernorBravo::propose: must provide actions");` and `require(targets.length <= proposalMaxOperations, "GovernorBravo::propose: too many actions");` :These checks ensure that each proposal is well-formed, with corresponding action details, and prevents overly complex proposals that could be difficult to process or understand.
+   -  The first check ensures the array lengths of targets, values, signatures, and calldatas match, verifying consistency among proposal details.
+   -  The second check ensures that there is at least one action in the proposal.
+   -  The third check enforces a limit on the number of actions allowed per proposal.
 
 
 
