@@ -243,7 +243,7 @@ function propose(address[] memory targets, uint[] memory values, string[] memory
 function propose(address[] memory targets, uint[] memory values, string[] memory signatures, bytes[] memory calldatas, string memory description) public returns (uint) {
 ```
 ##### Purpose: 
-This function allows a user to create a proposal for governance.
+This Propose() function allows a user to create a proposal for governance.
 
 ##### Parameters:
 1. **targets**: The addresses of the contracts to be called.
@@ -261,9 +261,21 @@ This function allows a user to create a proposal for governance.
    -  The first check ensures the array lengths of targets, values, signatures, and calldatas match, verifying consistency among proposal details.
    -  The second check ensures that there is at least one action in the proposal.
    -  The third check enforces a limit on the number of actions allowed per proposal.
+4. `uint latestProposalId = latestProposalIds[msg.sender];
+if (latestProposalId != 0) {
+  ProposalState proposersLatestProposalState = state(latestProposalId);
+  require(proposersLatestProposalState != ProposalState.Active, "GovernorBravo::propose: one live proposal per proposer, found an already active proposal");
+  require(proposersLatestProposalState != ProposalState.Pending, "GovernorBravo::propose: one live proposal per proposer, found an already pending proposal");
+}
+`: This is Proposer’s Existing Proposal Check Limits each proposer to one active proposal at a time. This prevents any single proposer from flooding the system with multiple proposals simultaneously, thereby encouraging thoughtful proposal creation. If the proposer already has a pending or active proposal, they cannot create a new one.
 
-
-
-
+#### Setting Proposal Timeline
+```
+uint startBlock = add256(block.number, votingDelay);
+uint endBlock = add256(startBlock, votingPeriod);
+```
+These variables define the time frame for voting, ensuring all proposals follow a standardized voting period. The delay before voting starts gives stakeholders time to prepare.
+   - `startBlock`: Sets the block number when voting will begin, with a delay specified by `votingDelay`.
+   - `endBlock`: Sets the block number when voting will end, calculated as `startBlock + votingPeriod`.
 
 
