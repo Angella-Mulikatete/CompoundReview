@@ -20,11 +20,7 @@
    1.6 [GovernorBravoDelegate](#16-governorbravodelegate)  
    1.7 [Contracts Structure](#17-contracts-structure)  
 2. [CONTRACT REVIEW](#20-contract-review)  
-3. [FINDINGS](#30-findings)  
-   3.1 [Qualitative Analysis](#31-qualitative-analysis)  
-   3.2 [Summary](#32-summary)  
-   3.3 [Recommendations](#33-recommendations)  
-4. [CONCLUSION](#40-conclusion)  
+3. [CONCLUSION](#40-conclusion)  
 
 
 ---
